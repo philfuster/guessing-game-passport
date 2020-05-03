@@ -1,0 +1,21 @@
+extends ./layouts/main-layout.pug
+block head-link-list
+  +head-links([
+    {href:'/stylesheets/css/error.css'}
+  ])
+block nav-link-list
+  +nav-links([
+    {path: '/start', desc: 'Ready?'},
+    {path: '/', desc: 'Home'}
+  ])
+block content
+  main(role="main")
+    .content-layout
+      #content
+        h1 Oops!
+        h2 We can't seem to find the page you are looking for.
+        h3 Error Code: #{error.status}
+        p Here are some helpful links instead:
+        ul#error-nav-links
+          a(class="nav-link" href="/") Home
+        pre= error.stack

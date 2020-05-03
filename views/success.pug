@@ -1,0 +1,20 @@
+extends ./layouts/main-layout.pug
+block head-link-list
+  +head-links([
+    {href: '/stylesheets/css/main.css'}
+  ])
+block nav-link-list
+  +nav-links([
+    {path: '/', desc: 'Home'},
+    {path: '/start', desc: 'Play Again?'},
+    {path: '/history', desc: 'History'}
+    ])
+block content
+  main(role="main")
+    .content-layout
+      #content
+        h1.page-title Congratulations! You won
+  footer
+    nav(class="nav nav--footer l-grid")
+      a(href="/start") Play Again?
+          

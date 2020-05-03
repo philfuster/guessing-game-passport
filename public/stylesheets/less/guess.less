@@ -1,0 +1,33 @@
+@import 'main.less';
+.highGuess {
+  background-color: tint(@orange, 50%);
+  border: 5px solid saturate(@orange, 60%);
+}
+.lowGuess {
+  background-color: tint(@light-blue, 40%);
+  border: 5px solid saturate(@light-blue, 40%);
+}
+.circle {
+  background-color: @orange;
+  width: calc(3rem + 4vh);
+  height: calc(3rem + 4vh);
+  border-radius: 50%;
+  border-width: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.question-mark {
+  background-color: transparent;
+  color: @white;
+  font-size: calc(3rem + 4vh);
+  align-self: center;
+  line-height: 0;
+}
+
+.instructions {
+  background-color: #efefef;
+  border-radius: 0.5em;
+  font-size: 1.5rem;
+  padding: 1em 1em;
+}

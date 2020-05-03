@@ -1,0 +1,39 @@
+extends ./layouts/main-layout.pug
+block head-link-list
+  +head-links([
+    {rel:'stylesheet', href: '/stylesheets/css/guess.css'}
+    ])
+block head-script-list
+  +head-scripts([
+    {src:'/javascripts/guessForm.js'}
+  ])
+block nav-link-list
+  +nav-links([
+    {path: '/', desc: 'Home'},
+    {path: '/history', desc: 'History'}
+    ])
+block content
+  main(role="main")
+    .container
+      h1.page-title Guess
+      form(id="guess-form" action="/guess" method="post")
+        .form-group
+          input(
+            type="number"
+            id="guess"
+            class="form-control"
+            aria-describedby="guessHelp"
+            autocomplete="off"
+            placeholder="Your Guess"
+            )
+          small#guessHelp(class="form-text text-muted").
+            The server is thinking of a number between 1 and 10
+          div(class="d-flex justify-content-center")
+            button#guess_input.circle(type="button")
+              span(class="question-mark") &#63
+      ul#guess-display
+        if result == 'too high'
+          li(class="highGuess p-3 font-weight-bolder rounded-pill") #{guess} is #{result}
+        else
+          li(class="lowGuess p-3 font-weight-bolder rounded-pill") #{guess} is #{result} 
+      

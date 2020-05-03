@@ -1,0 +1,22 @@
+mixin nav-links(links)
+  for link in links
+    li(class="nav-item"): a.nav-link(href=link.path)= link.desc
+mixin head-links(links)
+  for link in links
+    link(rel=link.rel ? link.rel : 'stylesheet' href=link.href)
+mixin head-scripts(scripts)
+  for script in scripts
+    script(src=script.src)
+mixin game-data-tile(game)
+  .card.col(data-objectid=game._id)
+    .card-body.text-center
+      .card-title Date
+        p.card-text #{game.timeStamp}
+      .card-title Secret Number
+        p.card-text #{game.secretNumber}
+      .card-title Game Length
+        p.card-text #{game.guesses.length}
+mixin guess-button()
+  div(class="d-flex justify-content-center")
+    button.circle
+      span(class="question-mark") &#63        

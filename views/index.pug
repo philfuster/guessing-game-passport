@@ -1,0 +1,61 @@
+extends ./layouts/main-layout.pug
+block head-link-list
+  +head-links([
+    {href: '/stylesheets/css/index.css'}
+    ])
+block head-script-list
+  +head-scripts([
+    {src:'/javascripts/index.js'}
+  ])
+block nav-link-list
+  +nav-links([
+    {path: '/start', desc: 'Ready?'},
+    {path: '/history', desc: 'History'}
+    ])
+block content
+  main(role="main")
+    .container-fluid
+      h1.page-title Enhancements
+      .accordion(id="contentAccordion")
+        //- PUG
+        .card
+          .card-header#pugHeader
+            h2.mb-0
+              button(class="btn btn-link" type="button" data-toggle="collapse" data-target="#pugDetail") Pug - Node Template Engine
+          #pugDetail(class="collapse show" aria-labelledby="pugHeader" data-parent="#contentAccordion")
+            .card-body
+              p.card-text.
+                Pug is a high-performance template engine heavily influenced by Haml and
+                implemented with JavaScript for Node.js and browsers.
+              p.card-text.
+                Through out Guessing Game, the ways in which Pug facilitates code reusability
+                with features like include, block, extend, and mixin will be highlighted.
+        //- Rename from Jade
+        .card
+          .card-header#renameHeader
+            h2.mb-0
+              button(class="btn btn-link" type="button" data-toggle="collapse" data-target="#renameDetail") Rename From Jade
+          #renameDetail(class="collapse" aria-labelledby="renameHeader" data-parent="#contentAccordion")
+            .card-body
+              p.card-text.
+                Pug was formerly known as "jade". However, it was revealed to the
+                maintainers that "jade" is a registered trademark; as a result, they had to
+                change their name.
+              p.card-text.
+                Maintainers acquired permission to occupy the package name, but future
+                releases will be under the name "pug".
+        .card
+          .card-header#lessHeader
+            h2.mb-0
+              button(class="btn btn-link" type="button" data-toggle="collapse" data-target="#lessDetail") LESS - CSS preprocessor  
+          #lessDetail(class="collapse" aria-labelledby="lessHeader" data-parent="#contentAccordion")              
+            .card-body
+              p.card-text.
+                LESS (which stands for Leaner Style Sheets) is backwards compatible language
+                extension for CSS.
+              p.card-text.
+                Because Less looks just like CSS, learning is a breeze. Less only makes a
+                few convenient additions to the CSS language, which is one of th reasons it
+                can be learned so quickly.
+          
+            
