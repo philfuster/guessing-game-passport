@@ -36,6 +36,14 @@ function getDb() {
   return db;
 }
 
+async function lookupUser(user) {
+  assert.ok(db, 'DB has not been initialized. Please call initDb() first.');
+  const { username } = user;
+  const users = db.collection('users');
+
+  const response = await users.findOne({ username });
+}
+
 module.exports = {
   getDb,
   initDb,

@@ -12,11 +12,11 @@ const { ObjectID } = require('mongodb');
 
 const url = require('url');
 
-const { getDb } = require('../public/config/db');
+const { getDb } = require('../config/db');
 
-const appdata = require('../public/config/app-data');
+const config = require('../config/config');
 
-const { views, routes, title } = appdata;
+const { views, routes, title } = config;
 /*
   === Function Defitions ===
 */

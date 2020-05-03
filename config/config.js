@@ -1,10 +1,10 @@
 const routes = require('./routes');
 const views = require('./views');
 
-const appdata = {
+const config = {
   routes,
   views,
   title: 'Guessing Game With Bootstrap',
 };
 
-module.exports = appdata;
+module.exports = config;

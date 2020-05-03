@@ -4,6 +4,7 @@ const views = {
   guessForm: 'guessForm',
   success: 'success',
   history: 'history',
+  login: 'login',
 };
 
 module.exports = views;

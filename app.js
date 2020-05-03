@@ -4,11 +4,10 @@ const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const less = require('less');
 const lessMiddleware = require('less-middleware');
 const debug = require('debug');
 // DB Module
-const { initDb } = require('./public/config/db');
+const { initDb } = require('./config/db');
 /*
   === Local Variables ===
 */
@@ -26,6 +25,7 @@ const log = debug('guess:app');
 const error = debug('guess: error');
 // Router declaration
 const indexRouter = require('./routes/index.js');
+const authRouter = require('./routes/auth.js');
 
 /*
   === Function Definitions ===
@@ -53,6 +53,8 @@ const app = express();
     app.use(logger('dev'));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
+    // app.use(passport.initialize());
+    // app.use(passport.session);
     app.use(cookieParser());
     app.use(
       lessMiddleware('/stylesheets/less', {
@@ -69,6 +71,7 @@ const app = express();
 
     // Set Routers
     app.use('/', indexRouter);
+    app.use('/login', authRouter);
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {

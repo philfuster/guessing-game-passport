@@ -1,0 +1,47 @@
+extends ./layouts/main-layout.pug
+block head-link-list
+  +head-links([
+    {href: '/stylesheets/css/login.css'}
+  ])
+block nav-link-list
+  +nav-links([
+    {path: '/', desc:'Home'}
+  ])
+block content
+  main(role="main")
+    .container
+      h1.page-title Guess - Login
+      form(id="login-form" action="/login" method="post")
+        .form-group
+          label(for="input-username") Username
+          input(
+            type="text"
+            id="input-username"
+            class="form-control"
+            aria-describedby="username-help"
+            required
+            placeholder="Enter username"
+          )
+          small#username-help(class="form-text text-muted")
+            Enter the username you used to signup
+        .form-group
+          label(for="input-password") Password
+          .input-group
+            input(
+              type="password"
+              id="input-password"
+              class="form-control"
+              aria-describedby="password-help"
+              required
+              placeholder="Enter password"
+            )
+            .input-group-append
+              span(class="info-source input-group-text" data-toggle="tooltip" data-placement="top" 
+              title="Password Requirements: 8 character minimum Must include atleast one digit Must include atleast one special character Must include atleast one uppercase") &#128712
+          small#username-help(class="form-text text-muted").
+            | Password Requirements:
+            | 8 character minimum
+            | Must include atleast one digit
+            | Must include atleast one special character
+            | Must include atleast one uppercase
+        
