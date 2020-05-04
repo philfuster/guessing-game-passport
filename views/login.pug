@@ -3,13 +3,17 @@ block head-link-list
   +head-links([
     {href: '/stylesheets/css/login.css'}
   ])
+block head-script-list
+  +head-scripts([
+    {src: '/javascripts/login.js'}
+  ])
 block nav-link-list
   +nav-links([
     {path: '/', desc:'Home'}
   ])
 block content
-  main(role="main")
-    .container
+  .container
+    main(role="main")
       h1.page-title Guess - Login
       form(id="login-form" action="/login" method="post")
         .form-group
@@ -22,7 +26,7 @@ block content
             required
             placeholder="Enter username"
           )
-          small#username-help(class="form-text text-muted")
+          small#username-help(class="form-text text-muted").
             Enter the username you used to signup
         .form-group
           label(for="input-password") Password
@@ -38,10 +42,10 @@ block content
             .input-group-append
               span(class="info-source input-group-text" data-toggle="tooltip" data-placement="top" 
               title="Password Requirements: 8 character minimum Must include atleast one digit Must include atleast one special character Must include atleast one uppercase") &#128712
-          small#username-help(class="form-text text-muted").
+          small#username-help(class="form-text text-muted")
             | Password Requirements:
-            | 8 character minimum
-            | Must include atleast one digit
-            | Must include atleast one special character
-            | Must include atleast one uppercase
+            | 8 character minimum &#9679;
+            | One digit &#9679;
+            | One special character &#9679;
+            | One uppercase
         

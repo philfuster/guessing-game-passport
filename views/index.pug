@@ -10,12 +10,12 @@ block head-script-list
 block nav-link-list
   +nav-links([
     {path: '/start', desc: 'Ready?'},
-    {path: '/history', desc: 'History'},
-    {path: '/login', desc: 'login/signup'}
+    {path: '/history', desc: 'History'}
     ])
+  
 block content
-  main(role="main")
-    .container-fluid
+  .container
+    main(role="main")
       h1.page-title Enhancements
       .accordion(id="contentAccordion")
         //- PUG
