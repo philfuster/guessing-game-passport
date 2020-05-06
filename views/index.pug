@@ -58,5 +58,17 @@ block content
                 Because Less looks just like CSS, learning is a breeze. Less only makes a
                 few convenient additions to the CSS language, which is one of th reasons it
                 can be learned so quickly.
-          
+      .modal(class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true")
+        .modal-dialog(role="document")
+          .modal-content
+            .modal-header
+              h5.modal-title Modal Title
+              button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                span(aria-hidden="true")
+            .modal-body
+              p Modal body text goes here.
+            .modal-footer
+              button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+              button(type="button" class="btn btn-primary" data-dismiss="modal") Save Changes
+
             
