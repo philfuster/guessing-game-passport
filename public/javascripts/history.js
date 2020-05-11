@@ -27,10 +27,12 @@ $(document).ready(function () {
     }
     if (response.ok) {
       try {
+        // Read game
         const game = await response.json();
         $('#secret').text(game.secretNumber);
         $('#num_guesses').text(game.guesses.length);
         $('#date').text(game.timeStamp);
+        $('#guesses').empty();
         game.guesses.forEach((guess) => {
           $('<li/>')
             .addClass('list-item')

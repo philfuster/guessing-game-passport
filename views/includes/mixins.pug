@@ -8,7 +8,7 @@ mixin head-scripts(scripts)
   for script in scripts
     script(src=script.src)
 mixin game-data-tile(game)
-  .card.col(data-objectid=game._id)
+  .card(class="flex-grow-1 flex-shrink-1" data-objectid=game._id)
     .card-body.text-center
       .card-title Date
         p.card-text #{game.timeStamp}

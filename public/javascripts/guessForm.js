@@ -32,7 +32,7 @@ $(document).ready(function () {
           .text(`${guess} is too low`)
           .appendTo('#guess-display');
       }
-      $('#guess').val('');
+      $('#guess').val('').focus();
       const ul = $('#guess-display');
       ul[0].scrollTop = ul[0].scrollHeight;
     } catch (error) {

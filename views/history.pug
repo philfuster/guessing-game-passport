@@ -13,32 +13,31 @@ block nav-link-list
     {path: '/', desc: 'Home'}
     ])
 block content
-  .container
-    main(role="main")
-      h1.text-center.page-title Game History
-      table#history_table(class="table table-striped d-lg-none")
-        caption PAF Guessing Game History
-        thead.thead-dark.text-center
-          th(scope="col") Date
-          th(scope="col") Secret Number
-          th(scope="col") Guesses
+  main(role="main")
+    h1.text-center.page-title Game History
+    table#history_table(class="table table-striped d-md-none")
+      caption PAF Guessing Game History
+      thead.thead-dark.text-center
+        th(scope="col") Date
+        th(scope="col") Secret Number
+        th(scope="col") Guesses
+      each game, index in history
+        tr.text-center.p-3.p-3(data-objectid=game._id)
+          td#index #{game.timeStamp}
+          td #{game.secretNumber}
+          td #{game.guesses.length}
+    #history_tiles_wrapper.d-none.d-md-block.container
+      #history_tiles.d-flex
         each game, index in history
-          tr.table-row.text-center(data-objectid=game._id)
-            td#index #{game.timeStamp}
-            td #{game.secretNumber}
-            td #{game.guesses.length}
-      #history_tiles_wrapper.d-none.d-lg-block.container-fluid
-        #history_tiles.row.row-cols-lg-4.row-cols-xl-5
-          each game, index in history
-            +game-data-tile(game)
-      #game_detail(class="d-none container")
-        div(class="gameDetailContent d-flex flex-column align-items-center")
-          h2.text-center Game Detail
-          p#date
-          h3 Secret Number
-          p#secret
-          h3 # of Guesses
-          p#num_guesses
-          h3 Guesses
-          ul#guesses.text-center
-          a(href="#" id="history" class="btn btn-primary") History
+          +game-data-tile(game)
+    #game_detail(class="d-none")
+      div(class="gameDetailContent d-flex flex-column align-items-center")
+        h2.text-center Game Detail
+        p#date
+        h3 Secret Number
+        p#secret
+        h3 # of Guesses
+        p#num_guesses
+        h3 Guesses
+        ul#guesses.text-center
+        a(href="#" id="history" class="btn btn-primary") History

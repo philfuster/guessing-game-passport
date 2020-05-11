@@ -9,29 +9,29 @@ block nav-link-list
     {path: '/history', desc: 'History'}
   ])
 block content
-  .container
-    main(role="main")
-      h1.page-title Guess
-      .instructions-wrapper.d-none.d-md-block
-        h2.instructions.text-center
-          | The server is thinking of a number between 1 and 10.
-          br
-          | Can you guess it??
-      form(id="guess-form" action="/guess" method="post")
-        .form-group
-          input(
-            type="number"
-            id="guess"
-            name="guess"
-            class="form-control"
-            aria-describedby= "guessHelp"
-            autocomplete="off"
-            required
-            placeholder="Your Guess"
-            )
-          small#guessHelp(class="form-text text-muted d-md-none").
-            The server is thinking of a number between 1 and 10
-          div(class="d-flex justify-content-center")
-            button.circle
-              span(class="question-mark") &#63
-            
+  main(role="main")
+    h1.page-title Guess
+    .instructions-wrapper.d-none.d-md-block
+      h2.instructions.text-center
+        | The server is thinking of a number between 1 and 10.
+        br
+        | Can you guess it??
+    form(id="guess-form" action="/guess" method="post")
+      .form-group
+        input(
+          type="number"
+          id="guess"
+          name="guess"
+          class="form-control"
+          aria-describedby= "guessHelp"
+          autocomplete="off"
+          autofocus
+          required
+          placeholder="Your Guess"
+          )
+        small#guessHelp(class="form-text text-muted d-md-none").
+          The server is thinking of a number between 1 and 10
+        div(class="d-flex justify-content-center p-3")
+          button.circle
+            span(class="question-mark") &#63
+          

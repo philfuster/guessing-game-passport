@@ -6,6 +6,8 @@ const debug = require('debug');
 
 const log = debug('guess:routes');
 
+const assert = require('assert');
+
 const dateformat = require('dateformat');
 
 const { ObjectID } = require('mongodb');
@@ -77,7 +79,6 @@ async function handleGuess(req, res) {
     req.session.newGame = false;
     update = {
       $set: {
-        _id: id,
         timeStamp,
         secretNumber,
         complete: false,
@@ -110,7 +111,8 @@ async function handleGuess(req, res) {
   }
   // perform update
   try {
-    await gamesCol.updateOne(filter, update, { upsert: true });
+    const response = await gamesCol.updateOne(filter, update, { upsert: true });
+    assert.equal(response.modifiedCount, 1);
   } catch (err) {
     console.log(err.stack);
   }
