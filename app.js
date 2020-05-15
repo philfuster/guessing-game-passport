@@ -16,10 +16,11 @@ const auth = require('./config/passport');
   === Local Variables ===
 */
 // Express Session Option Object
-const sess = {
+const sessionOpts = {
+  saveUninitialized: true, // save new sessions
   secret: 'Phil is cool...duh',
-  resave: false,
-  saveUninitialized: false,
+  resave: false, // do not automatically write to the session store
+  cookie: { httpOnly: true, maxAge: 24192000000 },
 };
 // Binding debug's output to the console.
 // Initializing Loggers
@@ -57,7 +58,7 @@ const app = express();
     app.set('views', path.join(__dirname, '/views'));
     app.set('view engine', 'pug');
     app.use(logger('dev'));
-    app.use(cookieParser());
+    app.use(cookieParser(sessionOpts.secret));
     app.use(
       lessMiddleware('/stylesheets/less', {
         dest: '/stylesheets/css',
@@ -69,7 +70,7 @@ const app = express();
     );
     app.use(express.static(path.join(__dirname, '/public')));
     app.use(express.static(path.join(__dirname, '/routes')));
-    app.use(session(sess));
+    app.use(session(sessionOpts));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
     passport = auth.initialize();

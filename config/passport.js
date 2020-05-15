@@ -52,9 +52,9 @@ const initPassport = function () {
     cb(null, user._id);
   });
 
-  passport.deserializeUser(function (id, done) {
-    const userFound = findByUserId(id);
-    log(userFound);
+  passport.deserializeUser(async function (id, done) {
+    const userFound = await findByUserId(id);
+    log('user found in session...');
     done(null, userFound);
   });
   passport.use(

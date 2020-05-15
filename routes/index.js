@@ -6,6 +6,7 @@ const url = require('url');
 
 const debug = require('debug');
 
+const isLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const log = debug('guess:routes');
 
 const assert = require('assert');
@@ -51,8 +52,13 @@ function init(req) {
  */
 function handleStart(req, res) {
   log('Start being Handled...');
+  if (!req.user) {
+    res.redirect(views.login);
+    res.end();
+    return;
+  }
   init(req);
-  res.render(views.start, { title });
+  res.render(views.start);
 }
 /**
  * Handle Guess POST Request
@@ -61,6 +67,9 @@ function handleStart(req, res) {
  * @param {Response} res - Response object
  */
 async function handleGuess(req, res) {
+  if (!req.user) {
+    res.redirect(views.login);
+  }
   log('Guess being Handled...');
   const db = getDb();
   const gamesCol = db.collection('games');
@@ -116,7 +125,7 @@ async function handleGuess(req, res) {
   // perform update
   try {
     const response = await gamesCol.updateOne(filter, update, { upsert: true });
-    assert.equal(response.modifiedCount, 1);
+    assert.equal(response.upsertedCount, 1);
   } catch (err) {
     console.log(err.stack);
   }
@@ -140,12 +149,22 @@ async function handleGuess(req, res) {
  * Handle Success
  */
 function handleSuccess(req, res) {
+  if (!req.user) {
+    res.redirect(views.login);
+    res.end();
+    return;
+  }
   res.render(views.success, { title });
 }
 /**
  * Handle History
  */
 async function handleHistory(req, res) {
+  if (!req.user) {
+    res.redirect(views.login);
+    res.end();
+    return;
+  }
   const db = getDb();
   const gamesCol = db.collection('games');
   const games = await gamesCol
@@ -160,6 +179,11 @@ async function handleHistory(req, res) {
  * Handle detail
  */
 async function handleDetail(req, res) {
+  if (!req.user) {
+    res.redirect(views.login);
+    res.end();
+    return;
+  }
   const db = getDb();
   const gamesCol = db.collection('games');
   //
@@ -180,16 +204,14 @@ async function handleDetail(req, res) {
 */
 
 /* GET index */
-router.get(
-  '/',
-  passport.authenticate('local', {
-    failureRedirect: '/login',
-  }),
-  function (req, res) {
-    log('Serving index');
-    res.render(views.index, { title, message: 'hey from pug' });
+router.get('/', function (req, res) {
+  if (!req.user) {
+    res.redirect(views.login);
+    res.end();
+    return;
   }
-);
+  res.render(views.index, { title });
+});
 
 /* GET start */
 router.get(routes.start, handleStart);
