@@ -53,7 +53,7 @@ function init(req) {
 function handleStart(req, res) {
   log('Start being Handled...');
   if (!req.user) {
-    res.redirect(views.login);
+    res.redirect(routes.login);
     res.end();
     return;
   }
@@ -150,7 +150,7 @@ async function handleGuess(req, res) {
  */
 function handleSuccess(req, res) {
   if (!req.user) {
-    res.redirect(views.login);
+    res.redirect(routes.login);
     res.end();
     return;
   }
@@ -161,7 +161,7 @@ function handleSuccess(req, res) {
  */
 async function handleHistory(req, res) {
   if (!req.user) {
-    res.redirect(views.login);
+    res.redirect(routes.login);
     res.end();
     return;
   }
@@ -180,7 +180,7 @@ async function handleHistory(req, res) {
  */
 async function handleDetail(req, res) {
   if (!req.user) {
-    res.redirect(views.login);
+    res.redirect(routes.login);
     res.end();
     return;
   }
@@ -206,7 +206,7 @@ async function handleDetail(req, res) {
 /* GET index */
 router.get('/', function (req, res) {
   if (!req.user) {
-    res.redirect(views.login);
+    res.redirect(routes.login);
     res.end();
     return;
   }

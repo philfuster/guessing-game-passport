@@ -5,7 +5,8 @@ const routes = {
   success: '/success',
   history: '/history',
   detail: '/detail',
-  login: '/login',
+  login: '/auth/login',
+  signup: '/auth/signup',
 };
 
 module.exports = routes;

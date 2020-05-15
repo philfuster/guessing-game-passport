@@ -5,6 +5,7 @@ const views = {
   success: 'success',
   history: 'history',
   login: 'login',
+  signup: 'signup',
 };
 
 module.exports = views;

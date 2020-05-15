@@ -25,7 +25,7 @@ const { routes, views, title } = config;
 /**
  * GET Login Form
  */
-router.get('/', function (req, res) {
+router.get('/login', function (req, res) {
   log('We trying to login real quick dawg...');
   res.render(views.login, { title, message: req.flash('error') });
 });
@@ -34,10 +34,10 @@ router.get('/', function (req, res) {
  * POST Login
  */
 router.post(
-  '/',
+  '/login',
   passport.authenticate('local', {
     session: true,
-    failureRedirect: '/',
+    failureRedirect: '/auth/login',
     failureFlash: true,
     successFlash: true,
   }),
@@ -46,5 +46,22 @@ router.post(
     res.render(views.index, { title });
   }
 );
+
+/**
+ * GET signup Form
+ */
+router.get('/signup', function (req, res) {
+  log('We trying to login real quick dawg...');
+  // haha could be more errors we can make with req.flash
+  res.render(views.signup, { title, message: req.flash('error') });
+});
+
+/**
+ * Post Signup Form
+ */
+router.post('/signup', function (req, res) {
+  log('We trying to login real quick dawg...');
+  res.render(views.login, { title, message: req.flash('error') });
+});
 
 module.exports = router;

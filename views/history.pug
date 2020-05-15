@@ -26,8 +26,8 @@ block content
           td#index #{game.timeStamp}
           td #{game.secretNumber}
           td #{game.guesses.length}
-    #history_tiles_wrapper.d-none.d-md-block.container
-      #history_tiles.d-flex
+    #history_tiles_wrapper.d-md-block
+      #history_tiles.d-flex.flex-wrap
         each game, index in history
           +game-data-tile(game)
     #game_detail(class="d-none")

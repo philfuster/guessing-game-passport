@@ -76,7 +76,7 @@ const initPassport = function () {
             message: `Unknown user ${username}`,
           });
         }
-        if (!verifyPassword(password)) {
+        if (!verifyPassword(user, password)) {
           return done(null, false, { message: 'Invalid Password' });
         }
         return done(null, user);

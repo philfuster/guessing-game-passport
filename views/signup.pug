@@ -14,9 +14,9 @@ block nav-link-list
 block content
   .container
     main(role="main")
-      h1.page-title Guess - Login
+      h1.page-title Guess - Signup
       .error #{message}
-      form(id="login-form" action="/auth/login" method="post")
+      form(id="login-form" action="/auth/signup" method="post")
         .form-group
           label(for="input-username") Username
           input(
@@ -51,5 +51,21 @@ block content
             | One digit &#9679;
             | One special character &#9679;
             | One uppercase
-          a(href="/auth/signup")
+        .form-group
+          label(for="repeatPassword") Repeat Password
+          .input-group
+            input(
+              type="password"
+              id="repeatPassword"
+              class="form-control"
+              aria-describedby="password-help"
+              required
+              name="repeatedPassword"
+              placeholder="Repeat password"
+            )
+            .input-group-append
+              span(class="info-source input-group-text" data-toggle="tooltip" data-placement="top" 
+              title="Repeat Password") &#128712
+          small#username-help(class="form-text text-muted")
+            | Repeat password        
         button(type="submit" class="btn btn-primary") Submit
