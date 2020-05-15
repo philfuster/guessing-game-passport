@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+const url = require('url');
+
 const debug = require('debug');
 
 const log = debug('guess:routes');
@@ -12,7 +14,9 @@ const dateformat = require('dateformat');
 
 const { ObjectID } = require('mongodb');
 
-const url = require('url');
+const { getPassport } = require('../config/passport');
+
+const passport = getPassport();
 
 const { getDb } = require('../config/db');
 
@@ -174,11 +178,18 @@ async function handleDetail(req, res) {
 /*
   === Routes ===
 */
+
 /* GET index */
-router.get('/', function (req, res) {
-  log('Serving index');
-  res.render(views.index, { title, message: 'hey from pug' });
-});
+router.get(
+  '/',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+  }),
+  function (req, res) {
+    log('Serving index');
+    res.render(views.index, { title, message: 'hey from pug' });
+  }
+);
 
 /* GET start */
 router.get(routes.start, handleStart);

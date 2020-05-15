@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 
 const debug = require('debug');
 
@@ -36,15 +36,37 @@ function getDb() {
   return db;
 }
 
-async function lookupUser(user) {
+async function findByUsername(username) {
   assert.ok(db, 'DB has not been initialized. Please call initDb() first.');
-  const { username } = user;
-  const users = db.collection('users');
+  // const users = db.collection('users');
+  try {
+    const query = { username };
+    const user = await db.collection('users').findOne({ username });
+    log(user);
+    return user;
+  } catch (err) {
+    log(err);
+  }
+}
 
-  const response = await users.findOne({ username });
+async function findById(id) {
+  assert.ok(db, 'DB has not been initialized. Please call initDb() first.');
+  const users = db.collection('users');
+  try {
+    const user = await users.findOne({ _id: ObjectID(id) });
+    if (user) {
+      log('User found by username...');
+      return user;
+    }
+    return null;
+  } catch (err) {
+    log(err);
+  }
 }
 
 module.exports = {
   getDb,
   initDb,
+  findByUsername,
+  findById,
 };

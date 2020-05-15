@@ -6,8 +6,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const lessMiddleware = require('less-middleware');
 const debug = require('debug');
+
+const flash = require('connect-flash');
 // DB Module
 const { initDb } = require('./config/db');
+// passport module
+const auth = require('./config/passport');
 /*
   === Local Variables ===
 */
@@ -16,7 +20,6 @@ const sess = {
   secret: 'Phil is cool...duh',
   resave: false,
   saveUninitialized: false,
-  cookie: {},
 };
 // Binding debug's output to the console.
 // Initializing Loggers
@@ -26,6 +29,8 @@ const error = debug('guess: error');
 // Router declaration
 const indexRouter = require('./routes/index.js');
 const authRouter = require('./routes/auth.js');
+
+let passport;
 
 /*
   === Function Definitions ===
@@ -46,15 +51,12 @@ const app = express();
 (async function () {
   try {
     await initDb();
+
     log('PAF Guessing Game Application started...');
     // view engine setup
     app.set('views', path.join(__dirname, '/views'));
     app.set('view engine', 'pug');
     app.use(logger('dev'));
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: false }));
-    // app.use(passport.initialize());
-    // app.use(passport.session);
     app.use(cookieParser());
     app.use(
       lessMiddleware('/stylesheets/less', {
@@ -68,6 +70,12 @@ const app = express();
     app.use(express.static(path.join(__dirname, '/public')));
     app.use(express.static(path.join(__dirname, '/routes')));
     app.use(session(sess));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+    passport = auth.initialize();
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(flash());
 
     // Set Routers
     app.use('/', indexRouter);

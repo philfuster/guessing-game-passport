@@ -16,10 +16,34 @@ const { getDb } = require('../config/db');
 
 const config = require('../config/config');
 
+const { getPassport } = require('../config/passport');
+
+const passport = getPassport();
+
 const { routes, views, title } = config;
 
-router.get('/', function (req, res) {
-  res.render(views.login, { title });
+/**
+ * GET Login Form
+ */
+router.get('/', function (req, res, message) {
+  log('We trying to login real quick dawg...');
+  res.render(views.login, { title, message: req.flash('error') });
 });
+
+/**
+ * POST Login
+ */
+router.post(
+  '/',
+  passport.authenticate('local', {
+    failureRedirect: '/',
+    failureFlash: true,
+    successFlash: true,
+  }),
+  function (req, res) {
+    log('We posted a login type shit...');
+    res.render(views.index, { title });
+  }
+);
 
 module.exports = router;

@@ -15,12 +15,14 @@ block content
   .container
     main(role="main")
       h1.page-title Guess - Login
+      .error #{message}
       form(id="login-form" action="/login" method="post")
         .form-group
           label(for="input-username") Username
           input(
             type="text"
             id="input-username"
+            name="username"
             class="form-control"
             aria-describedby="username-help"
             required
@@ -37,6 +39,7 @@ block content
               class="form-control"
               aria-describedby="password-help"
               required
+              name="password"
               placeholder="Enter password"
             )
             .input-group-append
@@ -48,4 +51,4 @@ block content
             | One digit &#9679;
             | One special character &#9679;
             | One uppercase
-        
+        button(type="submit" class="btn btn-primary") Submit
