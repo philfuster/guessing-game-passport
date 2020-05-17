@@ -40,7 +40,7 @@ async function findByUserId(id) {
 /*
  * Match hash from DB with hash performed and password passed by user
  */
-function verifyPassword() {
+function verifyPassword(user, password) {
   return 1;
 }
 

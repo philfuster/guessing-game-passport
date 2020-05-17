@@ -15,23 +15,12 @@ block nav-link-list
 block content
   main(role="main")
     h1.text-center.page-title Game History
-    table#history_table(class="table table-striped d-md-none")
-      caption PAF Guessing Game History
-      thead.thead-dark.text-center
-        th(scope="col") Date
-        th(scope="col") Secret Number
-        th(scope="col") Guesses
-      each game, index in history
-        tr.text-center.p-3.p-3(data-objectid=game._id)
-          td#index #{game.timeStamp}
-          td #{game.secretNumber}
-          td #{game.guesses.length}
-    #history_tiles_wrapper.d-md-block
-      #history_tiles.d-flex.flex-wrap
+    #history_tiles_wrapper
+      #history_tiles
         each game, index in history
           +game-data-tile(game)
-    #game_detail(class="d-none")
-      div(class="gameDetailContent d-flex flex-column align-items-center")
+    #game_detail.hidden
+      div(class="gameDetailContent")
         h2.text-center Game Detail
         p#date
         h3 Secret Number

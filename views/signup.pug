@@ -5,7 +5,6 @@ block head-link-list
   ])
 block head-script-list
   +head-scripts([
-    {src: '/javascripts/login.js'}
   ])
 block nav-link-list
   +nav-links([
@@ -14,8 +13,11 @@ block nav-link-list
 block content
   .container
     main(role="main")
-      h1.page-title Guess - Signup
-      .error #{message}
+      h1.page-title create your account
+      .error 
+        ul
+          each msg, index in message
+            li= msg
       form(id="login-form" action="/auth/signup" method="post")
         .form-group
           label(for="input-username") Username
@@ -29,7 +31,7 @@ block content
             placeholder="Enter username"
           )
           small#username-help(class="form-text text-muted").
-            Enter the username you used to signup
+            This will be how you are referred to.
         .form-group
           label(for="input-password") Password
           .input-group
@@ -42,9 +44,6 @@ block content
               name="password"
               placeholder="Enter password"
             )
-            .input-group-append
-              span(class="info-source input-group-text" data-toggle="tooltip" data-placement="top" 
-              title="Password Requirements: 8 character minimum Must include atleast one digit Must include atleast one special character Must include atleast one uppercase") &#128712
           small#username-help(class="form-text text-muted")
             | Password Requirements:
             | 8 character minimum &#9679;
@@ -52,20 +51,23 @@ block content
             | One special character &#9679;
             | One uppercase
         .form-group
-          label(for="repeatPassword") Repeat Password
+          label(for="confirmPassword") Confirm Password
           .input-group
             input(
               type="password"
-              id="repeatPassword"
+              id="confirmPassword"
               class="form-control"
               aria-describedby="password-help"
               required
-              name="repeatedPassword"
-              placeholder="Repeat password"
+              name="confirmPassword"
+              placeholder="Confirm password"
             )
-            .input-group-append
-              span(class="info-source input-group-text" data-toggle="tooltip" data-placement="top" 
-              title="Repeat Password") &#128712
           small#username-help(class="form-text text-muted")
-            | Repeat password        
-        button(type="submit" class="btn btn-primary") Submit
+            | Password Requirements:
+            | 8 character minimum &#9679;
+            | One digit &#9679;
+            | One special character &#9679;
+            | One uppercase        
+        .d-flex.flex-column
+          button(type="submit" class="btn btn-primary") create account
+          a(href="/auth/login" class="login-link") Already have an account?

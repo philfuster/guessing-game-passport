@@ -6,3 +6,16 @@ p {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+
+#history_tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 1fr;
+  grid-gap: 1em;
+}
+
+.gameDetailContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

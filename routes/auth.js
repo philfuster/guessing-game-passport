@@ -12,7 +12,7 @@ const { ObjectID } = require('mongodb');
 
 const url = require('url');
 
-const { getDb } = require('../config/db');
+const { getDb, findByUsername } = require('../config/db');
 
 const config = require('../config/config');
 
@@ -22,6 +22,11 @@ const passport = getPassport();
 
 const { routes, views, title } = config;
 
+// === Local Function Defs ===
+function validatePasswordReqs(password) {
+  const pattern = /\w{8,}\d{1,}[A-Z][-\/=\\#^$*+?.()|[\]{}]/gm;
+  return pattern.test(password);
+}
 /**
  * GET Login Form
  */
@@ -51,7 +56,7 @@ router.post(
  * GET signup Form
  */
 router.get('/signup', function (req, res) {
-  log('We trying to login real quick dawg...');
+  log('We getting signup form real quick dawg...');
   // haha could be more errors we can make with req.flash
   res.render(views.signup, { title, message: req.flash('error') });
 });
@@ -59,9 +64,40 @@ router.get('/signup', function (req, res) {
 /**
  * Post Signup Form
  */
-router.post('/signup', function (req, res) {
-  log('We trying to login real quick dawg...');
-  res.render(views.login, { title, message: req.flash('error') });
+router.post('/signup', async function (req, res) {
+  // is username taken?
+  log('Posting signup');
+  const { username, password, confirmPassword } = req.body;
+  const model = {};
+  const messages = [];
+  model.title = title;
+  let inputRejected = false;
+  try {
+    const foundUser = await findByUsername(username);
+    if (foundUser) {
+      messages.push('Username already taken');
+      inputRejected = true;
+    }
+  } catch (err) {
+    log(err);
+  }
+  // does password meet requirements?
+  // password must be repeated
+  if (password.localeCompare(confirmPassword) !== 0) {
+    messages.push('Passwords must match.');
+    inputRejected = true;
+  }
+  if (!validatePasswordReqs(password)) {
+    messages.push('Password does not meet requirements');
+    inputRejected = true;
+  }
+  //
+  model.message = messages;
+  if (inputRejected) {
+    res.render(views.signup, model);
+  } else {
+    // write new user to DB and ish
+  }
 });
 
 module.exports = router;

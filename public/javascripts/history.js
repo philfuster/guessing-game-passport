@@ -5,11 +5,9 @@ $(document).ready(function () {
     $('#secret').text('');
     $('#num_guesses').text('');
     $('#guesses').empty();
-    $('#game_detail').toggleClass('d-none');
+    $('#game_detail').hide();
+    $('#history_tiles_wrapper').show();
     $('#history').hide();
-    $('table').show();
-    $('#history_tiles_wrapper').toggleClass('d-md-block d-none');
-    $('#history_tiles').toggleClass('d-none d-flex');
   }
 
   $('tbody > tr, #history_tiles > .card').on('click', async function () {
@@ -42,9 +40,8 @@ $(document).ready(function () {
             .appendTo('#guesses');
         });
         $('table').hide();
-        $('#history_tiles_wrapper').toggleClass('d-none d-md-block');
-        $('#history_tiles').toggleClass('d-flex d-none');
-        $('#game_detail').toggleClass('d-none');
+        $('#history_tiles_wrapper').hide();
+        $('#game_detail').show();
         $('#history').show();
       } catch (error) {
         console.error(error.stack);

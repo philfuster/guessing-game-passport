@@ -42,14 +42,12 @@ block content
               name="password"
               placeholder="Enter password"
             )
-            .input-group-append
-              span(class="info-source input-group-text" data-toggle="tooltip" data-placement="top" 
-              title="Password Requirements: 8 character minimum Must include atleast one digit Must include atleast one special character Must include atleast one uppercase") &#128712
           small#username-help(class="form-text text-muted")
             | Password Requirements:
             | 8 character minimum &#9679;
             | One digit &#9679;
             | One special character &#9679;
             | One uppercase
-          a(href="/auth/signup")
-        button(type="submit" class="btn btn-primary") Submit
+        .d-flex.flex-column
+          button(type="submit" class="btn btn-primary") Log In
+          a(href="/auth/signup" class="") Create an Account?
