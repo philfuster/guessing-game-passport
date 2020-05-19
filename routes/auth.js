@@ -81,12 +81,12 @@ router.post('/signup', async function (req, res) {
   } catch (err) {
     log(err);
   }
-  // does password meet requirements?
-  // password must be repeated
+  // Confirm passwords match
   if (password.localeCompare(confirmPassword) !== 0) {
     messages.push('Passwords must match.');
     inputRejected = true;
   }
+  // Confirm password meets requirements
   if (!validatePasswordReqs(password)) {
     messages.push('Password does not meet requirements');
     inputRejected = true;

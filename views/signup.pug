@@ -1,10 +1,11 @@
 extends ./layouts/main-layout.pug
 block head-link-list
   +head-links([
-    {href: '/stylesheets/css/login.css'}
+    {href: '/stylesheets/css/signup.css'}
   ])
 block head-script-list
   +head-scripts([
+    {src: '/javascripts/signup.js'}
   ])
 block nav-link-list
   +nav-links([
@@ -33,11 +34,11 @@ block content
           small#username-help(class="form-text text-muted").
             This will be how you are referred to.
         .form-group
-          label(for="input-password") Password
+          label(for="password") Password
           .input-group
             input(
               type="password"
-              id="input-password"
+              id="password"
               class="form-control"
               aria-describedby="password-help"
               required
@@ -46,10 +47,14 @@ block content
             )
           small#username-help(class="form-text text-muted")
             | Password Requirements:
-            | 8 character minimum &#9679;
-            | One digit &#9679;
-            | One special character &#9679;
+            | 8 character minimum
+            span(data-lenMin) &#10686;
+            | One digit
+            span(data-numMin) &#10686;
+            | One special character 
+            span(data-specCharMin) &#10686;
             | One uppercase
+            span(data-upCaseMin) &#10686;
         .form-group
           label(for="confirmPassword") Confirm Password
           .input-group
@@ -62,7 +67,7 @@ block content
               name="confirmPassword"
               placeholder="Confirm password"
             )
-          small#username-help(class="form-text text-muted")
+          small#username-help2(class="form-text text-muted")
             | Password Requirements:
             | 8 character minimum &#9679;
             | One digit &#9679;
