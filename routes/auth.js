@@ -22,10 +22,31 @@ const passport = getPassport();
 
 const { routes, views, title } = config;
 
+// === Local Variable Defs ===
+const lengthReq = /.{8,}/m;
+const numberReq = /\d{1,}/m;
+const uppercaseReq = /[A-Z]/m;
+const specialCharReq = /[-\/=\\#^$*+?.()|[\]{}]/m;
+
 // === Local Function Defs ===
 function validatePasswordReqs(password) {
-  const pattern = /\w{8,}\d{1,}[A-Z][-\/=\\#^$*+?.()|[\]{}]/gm;
-  return pattern.test(password);
+  // Guilty until proven innocent
+  let inputRejected = true;
+  // If any of the password Requirements are not met break.
+  switch (false) {
+    case lengthReq.test(password):
+      break;
+    case numberReq.test(password):
+      break;
+    case uppercaseReq.test(password):
+      break;
+    case specialCharReq.test(password):
+      break;
+    default:
+      inputRejected = false;
+      break;
+  }
+  return inputRejected;
 }
 /**
  * GET Login Form
