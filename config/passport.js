@@ -40,8 +40,13 @@ async function findByUserId(id) {
 /*
  * Match hash from DB with hash performed and password passed by user
  */
-function verifyPassword(user, password) {
-  return 1;
+async function verifyPassword(user, password) {
+  try {
+    const match = bcrypt.compareSync(password, user.password);
+    return match;
+  } catch (err) {
+    log(`${err.stack}`);
+  }
 }
 
 // Configure the local strategy for use by Passport.

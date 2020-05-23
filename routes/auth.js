@@ -6,13 +6,17 @@ const debug = require('debug');
 
 const log = debug('guess:routes');
 
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
+
 const dateformat = require('dateformat');
 
 const { ObjectID } = require('mongodb');
 
 const url = require('url');
 
-const { getDb, findByUsername } = require('../config/db');
+const { getDb, findByUsername, createUser } = require('../config/db');
 
 const config = require('../config/config');
 
@@ -29,6 +33,11 @@ const uppercaseReq = /[A-Z]/m;
 const specialCharReq = /[-\/=\\#^$*+?.()|[\]{}]/m;
 
 // === Local Function Defs ===
+/**
+ *
+ * @param {string} password - password to validate
+ * @returns true if password is valid, false if not
+ */
 function validatePasswordReqs(password) {
   // Guilty until proven innocent
   let inputRejected = true;
@@ -46,14 +55,14 @@ function validatePasswordReqs(password) {
       inputRejected = false;
       break;
   }
-  return inputRejected;
+  return !inputRejected;
 }
 /**
  * GET Login Form
  */
 router.get('/login', function (req, res) {
   log('We trying to login real quick dawg...');
-  res.render(views.login, { title, message: req.flash('error') });
+  res.render(views.login, { title, err: req.flash('error') });
 });
 
 /**
@@ -79,7 +88,7 @@ router.post(
 router.get('/signup', function (req, res) {
   log('We getting signup form real quick dawg...');
   // haha could be more errors we can make with req.flash
-  res.render(views.signup, { title, message: req.flash('error') });
+  res.render(views.signup, { title, err: req.flash('error') });
 });
 
 /**
@@ -113,11 +122,19 @@ router.post('/signup', async function (req, res) {
     inputRejected = true;
   }
   //
-  model.message = messages;
+  model.err = messages;
   if (inputRejected) {
     res.render(views.signup, model);
   } else {
     // write new user to DB and ish
+    const date = dateformat();
+    const today = dateformat(date, 'mmm dd yyyy HH:MM:ss');
+    const hashedPw = await bcrypt.hash(password, saltRounds);
+    const newUser = { username, hashedPw, date_created: today };
+    await createUser(newUser);
+    res.render(views.login, {
+      message: 'Succesful Signup! Please login to confirm.',
+    });
   }
 });
 

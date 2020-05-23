@@ -6,13 +6,18 @@ const debug = require('debug');
 
 const log = debug('guess:dbConnection');
 
+const dateformat = require('dateformat');
+
 // Connection URL
 const dbUrl =
-  'mongodb+srv://paf:test@guessinggame-2plqp.mongodb.net/test?retryWrites=true&w=majority';
+  'mongodb://paf:test@cluster0-shard-00-00-a9iog.mongodb.net:27017,cluster0-shard-00-01-a9iog.mongodb.net:27017,cluster0-shard-00-02-a9iog.mongodb.net:27017/test?ssl=true&replicaSet=cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
 // Database name
 const dbName = 'GuessingGame';
 
-const client = new MongoClient(dbUrl, { useUnifiedTopology: true });
+const client = new MongoClient(dbUrl, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
 let db;
 
@@ -64,9 +69,21 @@ async function findById(id) {
   }
 }
 
+async function createUser(newUser) {
+  assert.ok(db, 'DB has not been initialized. Please call initDb() first.');
+  const users = db.collection('users');
+
+  try {
+    const result = await users.insertOne(newUser);
+    assert.equal(result.insertedCount, 1, 'error inserting new user');
+  } catch (err) {
+    log(`${err.stack}`);
+  }
+}
 module.exports = {
   getDb,
   initDb,
   findByUsername,
   findById,
+  createUser,
 };

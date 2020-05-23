@@ -15,7 +15,8 @@ block content
   .container
     main(role="main")
       h1.page-title Guess - Login
-      .error #{message}
+      div(class=error ? "error": "hidden") #{err}
+      div(class=message ? "message":"hidden" ) #{message}
       form(id="login-form" action="/auth/login" method="post")
         .form-group
           label(for="input-username") Username

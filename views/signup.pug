@@ -17,7 +17,7 @@ block content
       h1.page-title create your account
       .error 
         ul
-          each msg, index in message
+          each msg, index in err
             li= msg
       form(id="login-form" action="/auth/signup" method="post")
         .form-group

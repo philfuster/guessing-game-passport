@@ -7,6 +7,7 @@ const url = require('url');
 const debug = require('debug');
 
 const isLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+
 const log = debug('guess:routes');
 
 const assert = require('assert');
@@ -167,11 +168,16 @@ async function handleHistory(req, res) {
   }
   const db = getDb();
   const gamesCol = db.collection('games');
-  const games = await gamesCol
-    .find({
-      complete: { $eq: true },
-    })
-    .toArray();
+  let games;
+  try {
+    games = await gamesCol
+      .find({
+        complete: { $eq: true },
+      })
+      .toArray();
+  } catch (err) {
+    log(`${err.stack}`);
+  }
   res.render(views.history, { history: games, title });
 }
 
