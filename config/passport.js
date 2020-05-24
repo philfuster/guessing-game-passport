@@ -42,7 +42,8 @@ async function findByUserId(id) {
  */
 async function verifyPassword(user, password) {
   try {
-    const match = bcrypt.compareSync(password, user.password);
+    log('at verifyPw');
+    const match = await bcrypt.compare(password, user.hashedPw);
     return match;
   } catch (err) {
     log(`${err.stack}`);

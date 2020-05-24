@@ -83,6 +83,17 @@ router.post(
 );
 
 /**
+ * GET Logout
+ */
+router.get('/logout', function (req, res) {
+  if (req.user) {
+    req.logout();
+    log('trying to logout rn');
+    res.redirect('/auth/login');
+  }
+});
+
+/**
  * GET signup Form
  */
 router.get('/signup', function (req, res) {

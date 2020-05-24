@@ -15,10 +15,11 @@ block content
   .container
     main(role="main")
       h1.page-title create your account
-      .error 
+      div(class=error ? "error" : "hidden") 
         ul
           each msg, index in err
             li= msg
+      div(class=message ? "message": "hidden")
       form(id="login-form" action="/auth/signup" method="post")
         .form-group
           label(for="input-username") Username
