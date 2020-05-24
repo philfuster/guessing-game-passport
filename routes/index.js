@@ -6,8 +6,6 @@ const url = require('url');
 
 const debug = require('debug');
 
-const isLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-
 const log = debug('guess:routes');
 
 const assert = require('assert');
@@ -15,10 +13,6 @@ const assert = require('assert');
 const dateformat = require('dateformat');
 
 const { ObjectID } = require('mongodb');
-
-const { getPassport } = require('../config/passport');
-
-const passport = getPassport();
 
 const { getDb } = require('../config/db');
 

@@ -6,8 +6,6 @@ const debug = require('debug');
 
 const log = debug('guess:dbConnection');
 
-const dateformat = require('dateformat');
-
 // Connection URL
 const dbUrl =
   'mongodb://paf:test@cluster0-shard-00-00-a9iog.mongodb.net:27017,cluster0-shard-00-01-a9iog.mongodb.net:27017,cluster0-shard-00-02-a9iog.mongodb.net:27017/test?ssl=true&replicaSet=cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
@@ -45,7 +43,6 @@ async function findByUsername(username) {
   assert.ok(db, 'DB has not been initialized. Please call initDb() first.');
   // const users = db.collection('users');
   try {
-    const query = { username };
     const user = await db.collection('users').findOne({ username });
     log(user);
     return user;

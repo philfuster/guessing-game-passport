@@ -1,8 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const { ObjectID } = require('mongodb');
-
 const debug = require('debug');
 
 const log = debug('guess:Authentication');
@@ -10,8 +8,6 @@ const log = debug('guess:Authentication');
 const assert = require('assert');
 
 const bcrypt = require('bcrypt');
-
-const saltRounds = 10;
 
 const db = require('./db');
 

@@ -12,11 +12,7 @@ const saltRounds = 10;
 
 const dateformat = require('dateformat');
 
-const { ObjectID } = require('mongodb');
-
-const url = require('url');
-
-const { getDb, findByUsername, createUser } = require('../config/db');
+const { findByUsername, createUser } = require('../config/db');
 
 const config = require('../config/config');
 
@@ -24,7 +20,7 @@ const { getPassport } = require('../config/passport');
 
 const passport = getPassport();
 
-const { routes, views, title } = config;
+const { views, title } = config;
 
 // === Local Variable Defs ===
 const lengthReq = /.{8,}/m;
